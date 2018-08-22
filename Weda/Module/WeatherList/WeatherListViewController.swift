@@ -9,17 +9,41 @@
 import UIKit
 
 class WeatherListViewController: UITableViewController {
-    var weatherArray : [Weather]? = nil
 
+    lazy var viewModel: WeatherViewModel = {
+        return WeatherViewModel()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
         confifgureTableView()
-        
+        initVM()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func initVM(){
+        viewModel.updateLoadingStatusClosure = {[weak self] () in DispatchQueue.main.async {
+            let isLoading = self?.viewModel.isDataLoading ?? false
+            if isLoading {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self?.tableView.alpha = 0.0
+                })
+            }else{
+                UIView.animate(withDuration: 0.2, animations: {
+                    self?.tableView.alpha = 1.0
+                })
+            }
+            }}
+        
+        viewModel.reloadDataClosure = {[weak self]() in DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel.initFetch()
     }
     
     func confifgureTableView() {
@@ -31,20 +55,13 @@ class WeatherListViewController: UITableViewController {
         tableView.estimatedRowHeight = 241.0
     }
     
-    func getData(){
-        let weatherController : WeatherController = WeatherController(total: 10)
-        weatherArray = weatherController.getWeather()
-    }
-    
-    
-    //MARK: TableView setups
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let temp = (weatherArray![indexPath.row] as Weather).temperature
+        let temp = (viewModel.getWeatherModelForCellAt(row: indexPath.row)).temperature
         let tempFormat = "\(temp) ℃"
         
         if indexPath.row == 0{
             let todayViewell = tableView.dequeueReusableCell(withIdentifier: "TodayViewCell", for: indexPath) as! TodayViewCell
-                todayViewell.lableTemperature.text = tempFormat
+            todayViewell.lableTemperature.text = tempFormat
             return todayViewell
         }else {
             let normalViewCell = tableView.dequeueReusableCell(withIdentifier: "NormalViewCell") as! NormalViewCell
@@ -55,11 +72,13 @@ class WeatherListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (weatherArray?.count)!
+        return viewModel.dataCount
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
 }
+
 

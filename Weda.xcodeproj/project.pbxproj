@@ -18,7 +18,8 @@
 		CF56E5FB212BE488008561B5 /* NormalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E5F9212BE488008561B5 /* NormalViewCell.swift */; };
 		CF56E5FC212BE488008561B5 /* NormalViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF56E5FA212BE488008561B5 /* NormalViewCell.xib */; };
 		CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E5FE212BE9F6008561B5 /* Weather.swift */; };
-		CF56E601212BEAAD008561B5 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E600212BEAAD008561B5 /* WeatherController.swift */; };
+		CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E600212BEAAD008561B5 /* WeatherViewModel.swift */; };
+		CF56E604212C93B5008561B5 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E603212C93B5008561B5 /* WeatherService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +36,8 @@
 		CF56E5F9212BE488008561B5 /* NormalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalViewCell.swift; sourceTree = "<group>"; };
 		CF56E5FA212BE488008561B5 /* NormalViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalViewCell.xib; sourceTree = "<group>"; };
 		CF56E5FE212BE9F6008561B5 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		CF56E600212BEAAD008561B5 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
+		CF56E600212BEAAD008561B5 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		CF56E603212C93B5008561B5 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,49 +70,49 @@
 		CF56E5D8212BDB64008561B5 /* Weda */ = {
 			isa = PBXGroup;
 			children = (
+				CF56E5EF212BDC21008561B5 /* Model */,
+				CF56E5EE212BDBFC008561B5 /* Module */,
+				CF56E5F0212BDC3F008561B5 /* Service */,
 				CF56E5F3212BDCD0008561B5 /* Common */,
-				CF56E5F0212BDC3F008561B5 /* Services */,
-				CF56E5EF212BDC21008561B5 /* Data */,
-				CF56E5EE212BDBFC008561B5 /* Section */,
-				CF56E5DD212BDB64008561B5 /* Main.storyboard */,
+				CF56E5E3212BDB66008561B5 /* Assets.xcassets */,
 				CF56E5E0212BDB64008561B5 /* Weda.xcdatamodeld */,
 				CF56E5E8212BDB66008561B5 /* Info.plist */,
-				CF56E5E3212BDB66008561B5 /* Assets.xcassets */,
 			);
 			path = Weda;
 			sourceTree = "<group>";
 		};
-		CF56E5EE212BDBFC008561B5 /* Section */ = {
+		CF56E5EE212BDBFC008561B5 /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				CF56E5F2212BDC76008561B5 /* WeatherDetail */,
 				CF56E5F1212BDC4C008561B5 /* WeatherList */,
 			);
-			path = Section;
+			path = Module;
 			sourceTree = "<group>";
 		};
-		CF56E5EF212BDC21008561B5 /* Data */ = {
+		CF56E5EF212BDC21008561B5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				CF56E5FE212BE9F6008561B5 /* Weather.swift */,
 			);
-			path = Data;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		CF56E5F0212BDC3F008561B5 /* Services */ = {
+		CF56E5F0212BDC3F008561B5 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CF56E603212C93B5008561B5 /* WeatherService.swift */,
 			);
-			path = Services;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		CF56E5F1212BDC4C008561B5 /* WeatherList */ = {
 			isa = PBXGroup;
 			children = (
+				CF56E5DB212BDB64008561B5 /* WeatherListViewController.swift */,
+				CF56E600212BEAAD008561B5 /* WeatherViewModel.swift */,
 				CF56E5FD212BE48F008561B5 /* Normal */,
 				CF56E5F8212BDEA1008561B5 /* Today */,
-				CF56E5DB212BDB64008561B5 /* WeatherListViewController.swift */,
-				CF56E600212BEAAD008561B5 /* WeatherController.swift */,
 			);
 			path = WeatherList;
 			sourceTree = "<group>";
@@ -125,8 +127,8 @@
 		CF56E5F3212BDCD0008561B5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CF56E602212C9180008561B5 /* StoryBoards */,
 				CF56E5D9212BDB64008561B5 /* AppDelegate.swift */,
-				CF56E5E5212BDB66008561B5 /* LaunchScreen.storyboard */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -147,6 +149,15 @@
 				CF56E5FA212BE488008561B5 /* NormalViewCell.xib */,
 			);
 			path = Normal;
+			sourceTree = "<group>";
+		};
+		CF56E602212C9180008561B5 /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				CF56E5DD212BDB64008561B5 /* Main.storyboard */,
+				CF56E5E5212BDB66008561B5 /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,8 +237,9 @@
 				CF56E5DC212BDB64008561B5 /* WeatherListViewController.swift in Sources */,
 				CF56E5DA212BDB64008561B5 /* AppDelegate.swift in Sources */,
 				CF56E5F6212BDE98008561B5 /* TodayViewCell.swift in Sources */,
+				CF56E604212C93B5008561B5 /* WeatherService.swift in Sources */,
 				CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */,
-				CF56E601212BEAAD008561B5 /* WeatherController.swift in Sources */,
+				CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */,
 				CF56E5E2212BDB64008561B5 /* Weda.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
