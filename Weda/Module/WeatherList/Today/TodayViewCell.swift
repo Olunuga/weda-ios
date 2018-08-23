@@ -10,6 +10,9 @@ import UIKit
 
 class TodayViewCell: UITableViewCell {
 
+    @IBOutlet weak var labelHumidity: UILabel!
+    @IBOutlet weak var labelWindSpeed: UILabel!
+    @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var lableTemperature: UILabel!
     @IBOutlet weak var imageIcon: UIImageView!
     override func awakeFromNib() {

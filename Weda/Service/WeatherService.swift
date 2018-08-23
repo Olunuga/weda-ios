@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 enum APIError: String, Error {
     case noNetwork = "No Network"
@@ -15,21 +16,29 @@ enum APIError: String, Error {
 }
 
 protocol APIServiceProtocol {
-    func fetchWeatherData( complete: @escaping ( _ success: Bool, _ weather: [Weather], _ error: APIError? )->() )
+    func fetchWeatherData( location: String, complete: @escaping ( _ success: Bool, _ jsonData:Any, _ error: APIError? )->() )
 }
 
 class WeatherService: APIServiceProtocol {
-    // Simulate a long waiting for fetching
-    func fetchWeatherData( complete: @escaping ( _ success: Bool, _ Weather: [Weather], _ error: APIError? )->() ) {
-        DispatchQueue.global().async {
-            sleep(3)
-            var weatherArray = [Weather]()
-            for _ in 0 ..< 10 {
-                let temperature = arc4random_uniform(10) * 2
-                let weather = Weather(date: Date.init(), icon: "Windy", temp : "\(temperature)")
-                weatherArray.append(weather)
+    
+    let WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast"
+    let APP_ID = "f936b63d575f6aeded7bdb33e0084e1d"
+    
+    
+    func fetchWeatherData(location : String, complete: @escaping ( _ success: Bool, _ jsonData: Any, _ error: APIError? )->() ) {
+        let params : Parameters = ["q":location, "appid":APP_ID]
+        Alamofire.request(WEATHER_BASE_URL, method: .get, parameters: params, encoding: URLEncoding.queryString)
+            .downloadProgress(queue: DispatchQueue.global(qos: .utility)) { progress in
             }
-            complete(true,weatherArray,nil)
+            .validate { request, response, data in
+                return .success
+            }
+            .responseJSON { response in
+                if response.result.isSuccess{
+                     complete(true,response.result.value!,nil)
+                }else{
+                    complete(false,[Weather](),APIError.noNetwork)
+                }
         }
     }
 }

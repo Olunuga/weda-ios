@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SwiftyJSON
+
 class WeatherViewModel {
     let weatherService : WeatherService
     
@@ -37,7 +39,6 @@ class WeatherViewModel {
     var showAlert : (()->())?
     
 
-   
     init(weatherService : WeatherService = WeatherService()) {
         self.weatherService = weatherService
     }
@@ -45,15 +46,44 @@ class WeatherViewModel {
     
     func initFetch(){
         self.isDataLoading = true
-        weatherService.fetchWeatherData { (success, weather, error) in
+        let location : String? = "Lagos"
+        weatherService.fetchWeatherData(location: location!) { (success, data, error) in
             self.isDataLoading = false
             if let error = error {
                 self.alertMessage = error.rawValue
             }else {
-                self.weatherArray = weather
+                self.getWeatherFromJson(JSON(data))
             }
         }
     }
+    
+    func getWeatherFromJson(_ jsonData: JSON){
+        var weatherArray : [Weather] = [Weather]()
+        for (_,subJson):(String, JSON) in jsonData["list"] {
+            let date = subJson["dt"].doubleValue
+            let temperature = subJson["main"]["temp"].doubleValue
+            let tempHigh = subJson["main"]["temp_max"].doubleValue
+            let tempLow = subJson["main"]["temp_min"].doubleValue
+            let hum = subJson["main"]["humidity"].doubleValue
+            let windSpeed = subJson["wind"]["speed"].doubleValue
+            let description = subJson["weather"][0]["description"].stringValue
+            let iconDescription = subJson["weather"][0]["icon"].stringValue
+            let pressure = subJson["main"]["pressure"].doubleValue
+            
+            let dateValue : Date = Date(timeIntervalSince1970: date/1000.0)
+            var weather : Weather = Weather(date: dateValue, icon: "cloud", temp: "\(Int(temperature - 271.5))")
+            weather.tempHigh = tempHigh
+            weather.tempLow = tempLow
+            weather.description = description
+            weather.pressure = pressure
+            weather.windSpeed = windSpeed
+            weather.humidity = hum
+        
+            weatherArray.append(weather)
+        }
+        self.weatherArray = weatherArray
+    }
+    
     
     func getWeatherModelForCellAt(row position: Int) -> Weather{
         return weatherArray[position]

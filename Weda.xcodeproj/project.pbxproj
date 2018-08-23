@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6AA94A3981B5B0EBBB9B34ED /* Pods_Weda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76067E055FD91CE113A2C1CB /* Pods_Weda.framework */; };
 		CF56E5DA212BDB64008561B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E5D9212BDB64008561B5 /* AppDelegate.swift */; };
 		CF56E5DC212BDB64008561B5 /* WeatherListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E5DB212BDB64008561B5 /* WeatherListViewController.swift */; };
 		CF56E5DF212BDB64008561B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF56E5DD212BDB64008561B5 /* Main.storyboard */; };
@@ -20,9 +21,12 @@
 		CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E5FE212BE9F6008561B5 /* Weather.swift */; };
 		CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E600212BEAAD008561B5 /* WeatherViewModel.swift */; };
 		CF56E604212C93B5008561B5 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E603212C93B5008561B5 /* WeatherService.swift */; };
+		CF56E606212D9CF8008561B5 /* WeatherDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */; };
+		CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		76067E055FD91CE113A2C1CB /* Pods_Weda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF56E5D6212BDB64008561B5 /* Weda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF56E5D9212BDB64008561B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF56E5DB212BDB64008561B5 /* WeatherListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +42,10 @@
 		CF56E5FE212BE9F6008561B5 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		CF56E600212BEAAD008561B5 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		CF56E603212C93B5008561B5 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewModel.swift; sourceTree = "<group>"; };
+		CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
+		D56EE5CAFC12F1554C6ED388 /* Pods-Weda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.debug.xcconfig"; sourceTree = "<group>"; };
+		FBF398829B57EEE908402844 /* Pods-Weda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,17 +53,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AA94A3981B5B0EBBB9B34ED /* Pods_Weda.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6CDA50A47BD7FD943C8CA5A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D56EE5CAFC12F1554C6ED388 /* Pods-Weda.debug.xcconfig */,
+				FBF398829B57EEE908402844 /* Pods-Weda.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CF56E5CD212BDB64008561B5 = {
 			isa = PBXGroup;
 			children = (
 				CF56E5D8212BDB64008561B5 /* Weda */,
 				CF56E5D7212BDB64008561B5 /* Products */,
+				6CDA50A47BD7FD943C8CA5A1 /* Pods */,
+				E8B56E42854F6C6047BFEA59 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,6 +140,8 @@
 		CF56E5F2212BDC76008561B5 /* WeatherDetail */ = {
 			isa = PBXGroup;
 			children = (
+				CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */,
+				CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */,
 			);
 			path = WeatherDetail;
 			sourceTree = "<group>";
@@ -160,6 +182,14 @@
 			path = StoryBoards;
 			sourceTree = "<group>";
 		};
+		E8B56E42854F6C6047BFEA59 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				76067E055FD91CE113A2C1CB /* Pods_Weda.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -167,9 +197,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CF56E5EB212BDB66008561B5 /* Build configuration list for PBXNativeTarget "Weda" */;
 			buildPhases = (
+				B8CEE70CC8BBD2B72546EC6E /* [CP] Check Pods Manifest.lock */,
 				CF56E5D2212BDB64008561B5 /* Sources */,
 				CF56E5D3212BDB64008561B5 /* Frameworks */,
 				CF56E5D4212BDB64008561B5 /* Resources */,
+				8D55456193B77DF41E2F893D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -228,6 +260,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8D55456193B77DF41E2F893D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Weda/Pods-Weda-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Weda/Pods-Weda-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8CEE70CC8BBD2B72546EC6E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Weda-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CF56E5D2212BDB64008561B5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -241,6 +314,8 @@
 				CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */,
 				CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */,
 				CF56E5E2212BDB64008561B5 /* Weda.xcdatamodeld in Sources */,
+				CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */,
+				CF56E606212D9CF8008561B5 /* WeatherDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +457,7 @@
 		};
 		CF56E5EC212BDB66008561B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D56EE5CAFC12F1554C6ED388 /* Pods-Weda.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -400,6 +476,7 @@
 		};
 		CF56E5ED212BDB66008561B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBF398829B57EEE908402844 /* Pods-Weda.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

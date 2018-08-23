@@ -46,6 +46,8 @@ class WeatherListViewController: UITableViewController {
         viewModel.initFetch()
     }
     
+    //MARK: Table logics
+    
     func confifgureTableView() {
         tableView.register(UINib(nibName: "TodayViewCell", bundle: nil), forCellReuseIdentifier: "TodayViewCell")
         tableView.register(UINib(nibName: "NormalViewCell", bundle: nil), forCellReuseIdentifier: "NormalViewCell")
@@ -56,12 +58,17 @@ class WeatherListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let temp = (viewModel.getWeatherModelForCellAt(row: indexPath.row)).temperature
+        let weatherModel = viewModel.getWeatherModelForCellAt(row: indexPath.row)
+        let temp = weatherModel.temperature
         let tempFormat = "\(temp) ℃"
-        
+
         if indexPath.row == 0{
             let todayViewell = tableView.dequeueReusableCell(withIdentifier: "TodayViewCell", for: indexPath) as! TodayViewCell
             todayViewell.lableTemperature.text = tempFormat
+            todayViewell.labelHumidity.text = "\(weatherModel.humidity!)"
+            todayViewell.labelWindSpeed.text = "\(weatherModel.windSpeed!) Km/hr"
+            todayViewell.labelDescription.text = weatherModel.description!
+            
             return todayViewell
         }else {
             let normalViewCell = tableView.dequeueReusableCell(withIdentifier: "NormalViewCell") as! NormalViewCell
@@ -77,6 +84,17 @@ class WeatherListViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "openDetail", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openDetail" {
+            
+        }
     }
     
 }
