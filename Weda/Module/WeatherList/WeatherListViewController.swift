@@ -28,7 +28,9 @@ class WeatherListViewController: UIViewController{
         super.didReceiveMemoryWarning()
     }
     
+    
     func initVM(){
+        self.progressBar.hidesWhenStopped = true
         viewModel.updateLoadingStatusClosure = {[weak self] () in DispatchQueue.main.async {
             let isLoading = self?.viewModel.isDataLoading ?? false
             if isLoading {
@@ -84,6 +86,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
 
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         performSegue(withIdentifier: "openDetail", sender: self)
     }
 
@@ -98,12 +101,14 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             todayViewell.labelHumidity.text = "\(weatherModel.humidity)"
             todayViewell.labelWindSpeed.text = "\(weatherModel.windSpeed) Km/hr"
             todayViewell.labelDescription.text = weatherModel.weatherDescription
+            todayViewell.isUserInteractionEnabled = false
             todayViewell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
 
             return todayViewell
         }else {
             let normalViewCell = tableView.dequeueReusableCell(withIdentifier: "NormalViewCell") as! NormalViewCell
-            normalViewCell.labelTemperature.text = tempFormat
+            normalViewCell.labelTemperature.text = "\(temp ?? "N/A")°"
+            normalViewCell.selectionStyle = .default
             //normalViewCell.imageIcon.image = UIImage(named: "cloud")
             normalViewCell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
             return normalViewCell
