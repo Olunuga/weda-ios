@@ -95,17 +95,17 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.row == 0{
             let todayViewell = tableView.dequeueReusableCell(withIdentifier: "TodayViewCell", for: indexPath) as! TodayViewCell
             todayViewell.lableTemperature.text = tempFormat
-            todayViewell.labelHumidity.text = "\(weatherModel.humidity!)"
-            todayViewell.labelWindSpeed.text = "\(weatherModel.windSpeed!) Km/hr"
-            todayViewell.labelDescription.text = weatherModel.description!
-            todayViewell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc!).png"), placeholderImage: UIImage(named: "cloud"))
+            todayViewell.labelHumidity.text = "\(weatherModel.humidity)"
+            todayViewell.labelWindSpeed.text = "\(weatherModel.windSpeed) Km/hr"
+            todayViewell.labelDescription.text = weatherModel.weatherDescription
+            todayViewell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
 
             return todayViewell
         }else {
             let normalViewCell = tableView.dequeueReusableCell(withIdentifier: "NormalViewCell") as! NormalViewCell
             normalViewCell.labelTemperature.text = tempFormat
             //normalViewCell.imageIcon.image = UIImage(named: "cloud")
-            normalViewCell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc!).png"), placeholderImage: UIImage(named: "cloud"))
+            normalViewCell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
             return normalViewCell
         }
     }

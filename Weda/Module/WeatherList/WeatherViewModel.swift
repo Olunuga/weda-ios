@@ -54,7 +54,18 @@ class WeatherViewModel {
             if let error = error {
                 self.alertMessage = error.rawValue
             }else {
-                self.weatherArray = data as! [Weather]
+                let weatherArray = data as! [Weather]
+                if let weatherItem = weatherArray.first {
+                    if weatherItem.date!.compare(Date()) == ComparisonResult.orderedAscending {
+                        self.weatherRespository.deleteOldWeatherData(complete: { (status) in
+                            self.initFetch()
+                        })
+                        
+                    }else{
+                        self.weatherArray = data as! [Weather]
+                    }
+                }
+                
             }
         }
     }

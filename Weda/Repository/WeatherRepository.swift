@@ -11,31 +11,40 @@ import SwiftyJSON
 
 class weatherRepository: WeatherRepositoryProtocol {
     var weatherRemoteService : WeatherService? = WeatherService() //TODO: make this a singleton class
-    
+    var weatherLocalService : WeatherLocalService? = WeatherLocalService()
     
     func fetchWeatherData(location: String, complete: @escaping (Bool, Any, APIError?) -> ()) {
-        //TODO: if local is empty or less than 5, fectch remote, |
-        
-        if let weatherInstance = weatherRemoteService {
-            weatherInstance.fetchWeatherData(location: location) { (status, weatherData, apiError) in
-                if status {
-                    let weatherArray  = self.getWeatherFromJson(JSON(weatherData))
-                    complete(status, weatherArray, apiError)
-                }else{
-                    complete(status,[weatherData],apiError)
+        weatherLocalService?.fetchWeatherData(location: "", complete: { (status, weatherArray, error) in
+            if (weatherArray as! [Weather]).isEmpty {
+                if let weatherInstance = self.weatherRemoteService {
+                    weatherInstance.fetchWeatherData(location: location) { (status, weatherData, apiError) in
+                        if status {
+                            let weatherArray  = self.getWeatherFromJson(JSON(weatherData))
+                            self.weatherLocalService?.saveWeather(weatherArray: weatherArray, complete: { (Bool) in
+                                
+                            })
+                            complete(status, weatherArray, apiError)
+                        }else{
+                            complete(status,[weatherData],apiError)
+                        }
+                    }
                 }
+            }else{
+                complete(true,weatherArray as! [Weather] , nil)
             }
-        }
+        })
     }
     
     
-    func saveWeather(weatherArray: [Weather], complete: @escaping (Bool) -> ()) {
+    func saveWeather(weatherArray: [Weather]?, complete: @escaping (Bool) -> ()) {
         
     }
     
     
     func deleteOldWeatherData(complete: @escaping (Bool) -> ()) {
-        
+        weatherLocalService?.deleteOldWeatherData(complete: { (status) in
+            complete(status)
+        })
     }
     
     
@@ -54,13 +63,13 @@ class weatherRepository: WeatherRepositoryProtocol {
             let pressure = subJson["main"]["pressure"].doubleValue
             
             let dateValue : Date = Date(timeIntervalSince1970: date)
-            var weather : Weather = Weather()
+            let weather : Weather = Weather()
             weather.date = dateValue
             weather.icon = "cloud"
             weather.temperature = "\(Int(temperature - 271.5))"
             weather.tempHigh = tempHigh
             weather.tempLow = tempLow
-            weather.description = description
+            weather.weatherDescription = description
             weather.pressure = pressure
             weather.windSpeed = windSpeed
             weather.humidity = hum
@@ -76,7 +85,7 @@ class weatherRepository: WeatherRepositoryProtocol {
     
     func isDateRepeated(weatherArray : [Weather], date: Date) -> Bool{
         for weather in weatherArray {
-            print(Calendar.current.component(.weekday, from: weather.date!))
+            //print(Calendar.current.component(.weekday, from: weather.date!))
             if Calendar.current.component(.weekday, from: weather.date!) == Calendar.current.component(.weekday, from: date){
                 return true
             }

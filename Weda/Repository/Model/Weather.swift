@@ -7,16 +7,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Weather {
-    var date : Date?
-    var icon :String?
-    var temperature : String?
-    var tempHigh : Double?
-    var tempLow : Double?
-    var humidity : Double?
-    var windSpeed : Double?
-    var description : String?
-    var iconDesc: String?
-    var pressure : Double?
+class Weather: Object {
+  @objc dynamic var date : Date?
+  @objc dynamic var icon : String? = "cloud"
+  @objc dynamic var temperature : String?
+  @objc dynamic var tempHigh : Double = 0.0
+  @objc dynamic var tempLow : Double = 0.0
+  @objc dynamic var humidity : Double =  0.0
+  @objc dynamic var windSpeed : Double = 0.0
+  @objc dynamic var weatherDescription : String?
+  @objc dynamic var iconDesc: String? = "cloud"
+  @objc dynamic var pressure : Double = 0.0
 }

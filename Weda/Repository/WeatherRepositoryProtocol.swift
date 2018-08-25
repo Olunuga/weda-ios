@@ -10,6 +10,6 @@ import Foundation
 
 protocol WeatherRepositoryProtocol {
     func fetchWeatherData( location: String, complete: @escaping (_ status: Bool,_ weatherArray:Any,_ error: APIError? )->() )
-    func saveWeather(weatherArray : [Weather], complete: @escaping (_ status : Bool) ->())
+    func saveWeather(weatherArray : [Weather]?, complete: @escaping (_ status : Bool) ->())
     func deleteOldWeatherData(complete: @escaping (_ status : Bool) ->())
 }

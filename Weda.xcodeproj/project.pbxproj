@@ -20,11 +20,12 @@
 		CF56E5FC212BE488008561B5 /* NormalViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF56E5FA212BE488008561B5 /* NormalViewCell.xib */; };
 		CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E5FE212BE9F6008561B5 /* Weather.swift */; };
 		CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E600212BEAAD008561B5 /* WeatherViewModel.swift */; };
-		CF56E604212C93B5008561B5 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E603212C93B5008561B5 /* WeatherService.swift */; };
+		CF56E604212C93B5008561B5 /* WeatherRemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E603212C93B5008561B5 /* WeatherRemoteService.swift */; };
 		CF56E606212D9CF8008561B5 /* WeatherDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */; };
 		CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */; };
 		CF868AF82130EDB4001C53EA /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF72130EDB4001C53EA /* WeatherRepository.swift */; };
 		CF868AFA2130EDE9001C53EA /* WeatherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */; };
+		CF868AFC2130FF32001C53EA /* WeatherLocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AFB2130FF32001C53EA /* WeatherLocalService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,11 +44,12 @@
 		CF56E5FA212BE488008561B5 /* NormalViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalViewCell.xib; sourceTree = "<group>"; };
 		CF56E5FE212BE9F6008561B5 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		CF56E600212BEAAD008561B5 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
-		CF56E603212C93B5008561B5 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		CF56E603212C93B5008561B5 /* WeatherRemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRemoteService.swift; sourceTree = "<group>"; };
 		CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewModel.swift; sourceTree = "<group>"; };
 		CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
 		CF868AF72130EDB4001C53EA /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryProtocol.swift; sourceTree = "<group>"; };
+		CF868AFB2130FF32001C53EA /* WeatherLocalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocalService.swift; sourceTree = "<group>"; };
 		D56EE5CAFC12F1554C6ED388 /* Pods-Weda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.debug.xcconfig"; sourceTree = "<group>"; };
 		FBF398829B57EEE908402844 /* Pods-Weda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,7 +126,8 @@
 		CF56E5F0212BDC3F008561B5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CF56E603212C93B5008561B5 /* WeatherService.swift */,
+				CF56E603212C93B5008561B5 /* WeatherRemoteService.swift */,
+				CF868AFB2130FF32001C53EA /* WeatherLocalService.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -283,12 +286,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Weda/Pods-Weda-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -326,9 +333,10 @@
 				CF56E5DC212BDB64008561B5 /* WeatherListViewController.swift in Sources */,
 				CF56E5DA212BDB64008561B5 /* AppDelegate.swift in Sources */,
 				CF56E5F6212BDE98008561B5 /* TodayViewCell.swift in Sources */,
-				CF56E604212C93B5008561B5 /* WeatherService.swift in Sources */,
+				CF56E604212C93B5008561B5 /* WeatherRemoteService.swift in Sources */,
 				CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */,
 				CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */,
+				CF868AFC2130FF32001C53EA /* WeatherLocalService.swift in Sources */,
 				CF56E5E2212BDB64008561B5 /* Weda.xcdatamodeld in Sources */,
 				CF868AFA2130EDE9001C53EA /* WeatherRepositoryProtocol.swift in Sources */,
 				CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */,
