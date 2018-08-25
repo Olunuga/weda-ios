@@ -67,23 +67,39 @@ class WeatherViewModel {
             let hum = subJson["main"]["humidity"].doubleValue
             let windSpeed = subJson["wind"]["speed"].doubleValue
             let description = subJson["weather"][0]["description"].stringValue
-            let iconDescription = subJson["weather"][0]["icon"].stringValue
+            let iconDesc : String = subJson["weather"][0]["icon"].stringValue
             let pressure = subJson["main"]["pressure"].doubleValue
             
-            let dateValue : Date = Date(timeIntervalSince1970: date/1000.0)
-            var weather : Weather = Weather(date: dateValue, icon: "cloud", temp: "\(Int(temperature - 271.5))")
-            weather.tempHigh = tempHigh
-            weather.tempLow = tempLow
-            weather.description = description
-            weather.pressure = pressure
-            weather.windSpeed = windSpeed
-            weather.humidity = hum
-        
-            weatherArray.append(weather)
+            let dateValue : Date = Date(timeIntervalSince1970: date)
+                var weather : Weather = Weather()
+                weather.date = dateValue
+                weather.icon = "cloud"
+                weather.temperature = "\(Int(temperature - 271.5))"
+                weather.tempHigh = tempHigh
+                weather.tempLow = tempLow
+                weather.description = description
+                weather.pressure = pressure
+                weather.windSpeed = windSpeed
+                weather.humidity = hum
+                weather.iconDesc = iconDesc
+            
+            if !isDateRepeated(weatherArray: weatherArray, date: dateValue){
+                 weatherArray.append(weather)
+            }
         }
         self.weatherArray = weatherArray
     }
     
+    
+    func isDateRepeated(weatherArray : [Weather], date: Date) -> Bool{
+        for weather in weatherArray {
+            print(Calendar.current.component(.weekday, from: weather.date!))
+            if Calendar.current.component(.weekday, from: weather.date!) == Calendar.current.component(.weekday, from: date){
+                return true
+            }
+        }
+        return false
+    }
     
     func getWeatherModelForCellAt(row position: Int) -> Weather{
         return weatherArray[position]

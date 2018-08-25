@@ -23,6 +23,7 @@ class WeatherService: APIServiceProtocol {
     
     let WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast"
     let APP_ID = "f936b63d575f6aeded7bdb33e0084e1d"
+    let BASEIMAGEURL = "http://openweathermap.org/img/w/"
     
     
     func fetchWeatherData(location : String, complete: @escaping ( _ success: Bool, _ jsonData: Any, _ error: APIError? )->() ) {
