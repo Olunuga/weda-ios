@@ -23,6 +23,8 @@
 		CF56E604212C93B5008561B5 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E603212C93B5008561B5 /* WeatherService.swift */; };
 		CF56E606212D9CF8008561B5 /* WeatherDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */; };
 		CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */; };
+		CF868AF82130EDB4001C53EA /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF72130EDB4001C53EA /* WeatherRepository.swift */; };
+		CF868AFA2130EDE9001C53EA /* WeatherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		CF56E603212C93B5008561B5 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewModel.swift; sourceTree = "<group>"; };
 		CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
+		CF868AF72130EDB4001C53EA /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
+		CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryProtocol.swift; sourceTree = "<group>"; };
 		D56EE5CAFC12F1554C6ED388 /* Pods-Weda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.debug.xcconfig"; sourceTree = "<group>"; };
 		FBF398829B57EEE908402844 /* Pods-Weda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,9 +94,8 @@
 		CF56E5D8212BDB64008561B5 /* Weda */ = {
 			isa = PBXGroup;
 			children = (
-				CF56E5EF212BDC21008561B5 /* Model */,
+				CF868AF62130ED4B001C53EA /* Repository */,
 				CF56E5EE212BDBFC008561B5 /* Module */,
-				CF56E5F0212BDC3F008561B5 /* Service */,
 				CF56E5F3212BDCD0008561B5 /* Common */,
 				CF56E5E3212BDB66008561B5 /* Assets.xcassets */,
 				CF56E5E0212BDB64008561B5 /* Weda.xcdatamodeld */,
@@ -118,12 +121,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		CF56E5F0212BDC3F008561B5 /* Service */ = {
+		CF56E5F0212BDC3F008561B5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				CF56E603212C93B5008561B5 /* WeatherService.swift */,
 			);
-			path = Service;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		CF56E5F1212BDC4C008561B5 /* WeatherList */ = {
@@ -180,6 +183,17 @@
 				CF56E5E5212BDB66008561B5 /* LaunchScreen.storyboard */,
 			);
 			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		CF868AF62130ED4B001C53EA /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				CF56E5EF212BDC21008561B5 /* Model */,
+				CF56E5F0212BDC3F008561B5 /* Source */,
+				CF868AF72130EDB4001C53EA /* WeatherRepository.swift */,
+				CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		E8B56E42854F6C6047BFEA59 /* Frameworks */ = {
@@ -316,7 +330,9 @@
 				CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */,
 				CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */,
 				CF56E5E2212BDB64008561B5 /* Weda.xcdatamodeld in Sources */,
+				CF868AFA2130EDE9001C53EA /* WeatherRepositoryProtocol.swift in Sources */,
 				CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */,
+				CF868AF82130EDB4001C53EA /* WeatherRepository.swift in Sources */,
 				CF56E606212D9CF8008561B5 /* WeatherDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
