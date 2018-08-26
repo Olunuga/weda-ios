@@ -67,8 +67,8 @@ class weatherRepository: WeatherRepositoryProtocol {
             weather.date = dateValue
             weather.icon = "cloud"
             weather.temperature = "\(Int(temperature - 271.5))"
-            weather.tempHigh = tempHigh
-            weather.tempLow = tempLow
+            weather.tempHigh = tempHigh -  271.5
+            weather.tempLow = tempLow -  271.5
             weather.weatherDescription = description
             weather.pressure = pressure
             weather.windSpeed = windSpeed

@@ -13,7 +13,9 @@ class NormalViewCell: UITableViewCell {
     @IBOutlet weak var labelTemperature: UILabel!
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var labelDay: UILabel!
+    @IBOutlet weak var labelDescription: UILabel!
     
+    @IBOutlet weak var labelTempLow: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

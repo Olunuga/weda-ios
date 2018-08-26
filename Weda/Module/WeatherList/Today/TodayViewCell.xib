@@ -159,8 +159,10 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="imageIcon" destination="qkK-6U-7nu" id="XU8-sK-QpO"/>
-                <outlet property="labelDescription" destination="Yg7-Wp-yj4" id="tSb-3z-Cfk"/>
+                <outlet property="labelDescription" destination="Yg7-Wp-yj4" id="AkD-Rx-JX3"/>
                 <outlet property="labelHumidity" destination="70Q-0T-fy6" id="puf-zB-UAg"/>
+                <outlet property="labelRegion" destination="sva-9K-Be8" id="OoC-9e-pLt"/>
+                <outlet property="labelTemperatureLow" destination="lXX-ai-BuL" id="Agk-6Y-hni"/>
                 <outlet property="labelWindSpeed" destination="5YM-RK-yUX" id="J5X-fS-iCK"/>
                 <outlet property="lableTemperature" destination="6aC-K9-mdJ" id="B6S-rL-SJR"/>
             </connections>

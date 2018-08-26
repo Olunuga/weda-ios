@@ -15,6 +15,11 @@ class TodayViewCell: UITableViewCell {
     @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var lableTemperature: UILabel!
     @IBOutlet weak var imageIcon: UIImageView!
+    @IBOutlet weak var labelTemperatureLow: UILabel!
+    @IBOutlet weak var labelRegion: UILabel!
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

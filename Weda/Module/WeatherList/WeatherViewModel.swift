@@ -73,4 +73,23 @@ class WeatherViewModel {
     func getWeatherModelForCellAt(row position: Int) -> Weather{
         return weatherArray[position]
     }
+    
+    func getFriendlyDate(date: Date)->String{
+        let day = Calendar.current.component(.day, from: date)
+        let today = Calendar.current.component(.day, from: Date())
+        let difference = day - today
+        
+        switch difference {
+        case 0:
+            return "Today"
+        case 1:
+            return "Tomorrow"
+        default:
+            let dateFormatter = DateFormatter()
+            // US English Locale (en_US)
+            dateFormatter.locale = Locale(identifier: "en_GB")
+            dateFormatter.setLocalizedDateFormatFromTemplate("Ed")
+            return dateFormatter.string(from: date) // Tues, 31
+        }
+    }
 }

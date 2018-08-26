@@ -107,6 +107,9 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="imageIcon" destination="2ua-dZ-cAJ" id="D5l-ZL-OjE"/>
+                <outlet property="labelDay" destination="QO6-6A-sC1" id="ws5-YJ-Bn0"/>
+                <outlet property="labelDescription" destination="R9K-ZS-E8n" id="NKp-SY-wKP"/>
+                <outlet property="labelTempLow" destination="sn0-O1-o09" id="qce-Q3-BDD"/>
                 <outlet property="labelTemperature" destination="fLm-i5-OuQ" id="K9C-aJ-j2J"/>
             </connections>
             <point key="canvasLocation" x="75" y="-148"/>
