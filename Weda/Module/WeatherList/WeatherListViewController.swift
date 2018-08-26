@@ -8,8 +8,9 @@
 
 import UIKit
 import SDWebImage
+import CoreLocation
 
-class WeatherListViewController: UIViewController{
+class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var UITbaleView: UITableView!
     @IBOutlet weak var progressBar: UIActivityIndicatorView!
@@ -18,18 +19,45 @@ class WeatherListViewController: UIViewController{
         return WeatherViewModel()
     }()
     
+    let locationManager = CLLocationManager()
+    let geoCoder = CLGeocoder()
+    
+    //TODO: allow user input location them selves | handle location failed | Handle when there is no network | Handle when data is empty show full weather data for other days when selected | Make status bar opaque | Refactoe code | MVP done :-)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        initLocationManger()
         confifgureTableView()
-        initVM()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    func initLocationManger(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
     
-    func initVM(){
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[locations.count - 1]
+        
+        if location.horizontalAccuracy > 0 {
+            locationManager.stopUpdatingLocation()
+            locationManager.delegate = nil
+            geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                guard let currentLocPlacemark = placemarks?.first else { return }
+                if let locality = currentLocPlacemark.administrativeArea {
+                    self.initVM(with: locality)
+                }
+            }
+        }
+    }
+    
+    
+    func initVM(with location: String){
         self.progressBar.hidesWhenStopped = true
         viewModel.updateLoadingStatusClosure = {[weak self] () in DispatchQueue.main.async {
             let isLoading = self?.viewModel.isDataLoading ?? false
@@ -51,7 +79,7 @@ class WeatherListViewController: UIViewController{
             }
         }
 
-        viewModel.initFetch()
+        viewModel.initFetch(location:location)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -95,8 +123,11 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         let temp = weatherModel.temperature
         let tempFormat = "\(temp!) ℃"
 
+        
+        //TODO: refactoor this code here
         if indexPath.row == 0{
             let todayViewell = tableView.dequeueReusableCell(withIdentifier: "TodayViewCell", for: indexPath) as! TodayViewCell
+            todayViewell.labelRegion.text = viewModel.location!
             todayViewell.lableTemperature.text = tempFormat
             todayViewell.labelHumidity.text = "\(Int(weatherModel.humidity))%"
             todayViewell.labelWindSpeed.text = "\(weatherModel.windSpeed) Km/hr"
@@ -118,4 +149,5 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
 }
+
 

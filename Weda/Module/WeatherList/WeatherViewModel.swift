@@ -12,6 +12,7 @@ import SwiftyJSON
 class WeatherViewModel {
     let weatherService : WeatherService
     let weatherRespository :weatherRepository
+    var location : String?  = nil
     
     var isDataLoading : Bool  = false {
         didSet{
@@ -46,9 +47,10 @@ class WeatherViewModel {
     }
     
     
-    func initFetch(){
+    func initFetch(location: String?){
         self.isDataLoading = true
-        let location : String? = "Lagos"
+        //let location : String? = "Lagos"
+        self.location = location
         weatherRespository.fetchWeatherData(location: location!) { (success, data, error) in
             self.isDataLoading = false
             if let error = error {
@@ -58,7 +60,7 @@ class WeatherViewModel {
                 if let weatherItem = weatherArray.first {
                     if weatherItem.date!.compare(Date()) == ComparisonResult.orderedAscending {
                         self.weatherRespository.deleteOldWeatherData(complete: { (status) in
-                            self.initFetch()
+                            self.initFetch(location: location)
                         })
                         
                     }else{
