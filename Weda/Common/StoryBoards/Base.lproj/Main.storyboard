@@ -21,12 +21,25 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="y4y-CF-4dK">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8BB-oY-V9s">
-                                <rect key="frame" x="150" y="85" width="20" height="20"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hz3-yF-t5s">
+                                <rect key="frame" x="40" y="220" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weather data not available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7U-qv-9t0">
+                                        <rect key="frame" x="18.5" y="53.5" width="203" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="8uh-Je-l5Y"/>
-                                    <constraint firstAttribute="width" constant="20" id="M9V-ST-Rff"/>
+                                    <constraint firstItem="D7U-qv-9t0" firstAttribute="centerY" secondItem="hz3-yF-t5s" secondAttribute="centerY" id="CTo-TN-Z0u"/>
+                                    <constraint firstAttribute="width" constant="240" id="R9J-to-x2t"/>
+                                    <constraint firstItem="D7U-qv-9t0" firstAttribute="centerX" secondItem="hz3-yF-t5s" secondAttribute="centerX" id="TuH-fB-Z44"/>
+                                    <constraint firstAttribute="height" constant="128" id="XZg-v1-1Vu"/>
                                 </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8BB-oY-V9s">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
                                 <color key="color" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="usm-Mm-Deb">
@@ -47,13 +60,15 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="y4y-CF-4dK" firstAttribute="leading" secondItem="ILj-nG-h7H" secondAttribute="leading" id="FOj-gf-Q3N"/>
-                            <constraint firstItem="8BB-oY-V9s" firstAttribute="top" secondItem="ILj-nG-h7H" secondAttribute="top" constant="65" id="Jay-HJ-Gcs"/>
+                            <constraint firstItem="8BB-oY-V9s" firstAttribute="centerY" secondItem="W2I-Ph-P7F" secondAttribute="centerY" id="PNB-BM-I2I"/>
                             <constraint firstItem="usm-Mm-Deb" firstAttribute="leading" secondItem="ILj-nG-h7H" secondAttribute="leading" id="TPq-DD-wuP"/>
+                            <constraint firstItem="hz3-yF-t5s" firstAttribute="centerY" secondItem="W2I-Ph-P7F" secondAttribute="centerY" id="Y9V-Ji-Pn2"/>
                             <constraint firstItem="usm-Mm-Deb" firstAttribute="bottom" secondItem="ILj-nG-h7H" secondAttribute="bottom" id="b91-HD-FXd"/>
                             <constraint firstItem="y4y-CF-4dK" firstAttribute="bottom" secondItem="ILj-nG-h7H" secondAttribute="bottom" id="cAS-u1-WQc"/>
-                            <constraint firstItem="8BB-oY-V9s" firstAttribute="centerX" secondItem="W2I-Ph-P7F" secondAttribute="centerX" id="gsh-vj-PMe"/>
+                            <constraint firstItem="hz3-yF-t5s" firstAttribute="centerX" secondItem="W2I-Ph-P7F" secondAttribute="centerX" id="e8o-x7-ePe"/>
                             <constraint firstItem="y4y-CF-4dK" firstAttribute="trailing" secondItem="ILj-nG-h7H" secondAttribute="trailing" id="hON-Hh-ai1"/>
                             <constraint firstItem="usm-Mm-Deb" firstAttribute="trailing" secondItem="ILj-nG-h7H" secondAttribute="trailing" id="scg-P2-Kh4"/>
+                            <constraint firstItem="8BB-oY-V9s" firstAttribute="centerX" secondItem="W2I-Ph-P7F" secondAttribute="centerX" id="u3I-nU-4he"/>
                             <constraint firstItem="y4y-CF-4dK" firstAttribute="top" secondItem="W2I-Ph-P7F" secondAttribute="top" id="x6i-kn-pC6"/>
                             <constraint firstItem="usm-Mm-Deb" firstAttribute="top" secondItem="W2I-Ph-P7F" secondAttribute="top" id="yet-rJ-WS9"/>
                         </constraints>
@@ -62,6 +77,7 @@
                     <connections>
                         <outlet property="UITbaleView" destination="usm-Mm-Deb" id="ZFX-LF-Nf1"/>
                         <outlet property="progressBar" destination="8BB-oY-V9s" id="vfW-03-fHZ"/>
+                        <outlet property="viewNoLabel" destination="hz3-yF-t5s" id="iae-tj-KlY"/>
                         <segue destination="Iq1-7G-r6Q" kind="show" identifier="openDetail" id="LCe-Ih-mjF"/>
                     </connections>
                 </viewController>

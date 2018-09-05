@@ -36,9 +36,16 @@ class WeatherViewModel {
         return weatherArray.count
     }
     
+    var noData : Bool? {
+        didSet {
+            self.isDataAvailable?()
+        }
+    }
+    
     var updateLoadingStatusClosure : (()->())?
     var reloadDataClosure : (()->())?
     var showAlert : (()->())?
+    var isDataAvailable : (()->())?
     
 
     init(weatherService : WeatherService = WeatherService(), weatherRepository : weatherRepository = weatherRepository()) {
