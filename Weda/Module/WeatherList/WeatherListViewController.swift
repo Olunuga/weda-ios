@@ -31,26 +31,40 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
         confifgureTableView()
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if !CLLocationManager.locationServicesEnabled() {
-            showAlert()
-            print("location service not enabled")
+            let action = UIAlertAction(title: "Turn on", style: .default) { (action) in
+             self.openSettings(for: URL(string: "App-Prefs:root=Privacy&path=LOCATION"))
+            }
+            showAlert(title: "Turn location on", message: "Weda needs your location to show you the weather details", action: action)
         }
         
         let status = CLLocationManager.authorizationStatus()
-        if status != CLAuthorizationStatus.authorizedWhenInUse {
-            showAlert()
-            print("location service not authorized")
+        if status == CLAuthorizationStatus.denied {
+            let action = UIAlertAction(title: "Allow Location", style: .default) { (action) in
+                self.openSettings(for: URL(string:UIApplicationOpenSettingsURLString))
+            }
+            showAlert(title: "Allow Location", message: "Weda needs your location to show you the weather details", action: action)
         }else{
             self.progressBar.startAnimating()
             locationManager.startUpdatingLocation()
-            print("location service updating")
+        }
+    }
+    
+    func openSettings(for urlToOpen: URL?){
+        self.progressBar.isHidden = true
+        if let url = urlToOpen {
+            if UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
         }
     }
     
@@ -82,13 +96,10 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
         print(error)
     }
     
-    func showAlert(){
-        let alert = UIAlertController(title: "Please turn on Location", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Close", style: .cancel) { (acton) in
-         
-        }
+    func showAlert(title: String,message: String, action : UIAlertAction){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true,completion: nil)
     }
     
     
