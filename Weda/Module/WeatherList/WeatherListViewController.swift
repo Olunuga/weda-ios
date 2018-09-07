@@ -11,10 +11,11 @@ import SDWebImage
 import CoreLocation
 
 class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
-
+    
     @IBOutlet weak var viewNoLabel: UIView!
     @IBOutlet weak var UITbaleView: UITableView!
     @IBOutlet weak var progressBar: UIActivityIndicatorView!
+    @IBOutlet weak var lableNoData: UILabel!
     
     lazy var viewModel: WeatherViewModel = {
         return WeatherViewModel()
@@ -36,23 +37,48 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if !CLLocationManager.locationServicesEnabled() {
-            let action = UIAlertAction(title: "Turn on", style: .default) { (action) in
-             self.openSettings(for: URL(string: "App-Prefs:root=Privacy&path=LOCATION"))
+        
+        if isLocationAVailableToUse() {
+            viewNoLabel.isHidden = true
+            if(CheckInternet.Connection()){
+                self.progressBar.startAnimating()
+                locationManager.startUpdatingLocation()
+            }else{
+                showNoNetworkAlert()
+                initVM(with: "") //get current user saved location here.
             }
-            showAlert(title: "Turn location on", message: "Weda needs your location to show you the weather details", action: action)
+            
         }
         
-        let status = CLLocationManager.authorizationStatus()
-        if status == CLAuthorizationStatus.denied {
-            let action = UIAlertAction(title: "Allow Location", style: .default) { (action) in
-                self.openSettings(for: URL(string:UIApplicationOpenSettingsURLString))
+    }
+    
+    
+    func isLocationAVailableToUse() -> Bool {
+        
+        if CLLocationManager.locationServicesEnabled() {
+            let status = CLLocationManager.authorizationStatus()
+            if status != CLAuthorizationStatus.denied {
+                return true
+            }else{
+                let action = UIAlertAction(title: "Allow Location", style: .default) { (action) in
+                    self.openSettings(for: URL(string:UIApplicationOpenSettingsURLString))
+                    self.viewNoLabel.isHidden = false
+                    self.lableNoData.text = "Location acess not granted, Allow 'WEDA' to access your location data"
+                }
+                showAlert(title: "Allow Location", message: "Weda needs your location to show you the weather details", action: action)
+                return false
             }
-            showAlert(title: "Allow Location", message: "Weda needs your location to show you the weather details", action: action)
+            
         }else{
-            self.progressBar.startAnimating()
-            locationManager.startUpdatingLocation()
+            let action = UIAlertAction(title: "Turn on", style: .default) { (action) in
+                self.openSettings(for: URL(string: "App-Prefs:root=Privacy&path=LOCATION"))
+                self.viewNoLabel.isHidden = false
+                self.lableNoData.text = "Location data not available,\nTurn on your location service"
+            }
+            showAlert(title: "Turn location on", message: "Weda needs your location to show you the weather details", action: action)
+            return false
         }
+        
     }
     
     func openSettings(for urlToOpen: URL?){
@@ -69,10 +95,10 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func initLocationManger(){
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -123,18 +149,31 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
                 })
             }
             }}
-
+        
         viewModel.reloadDataClosure = {[weak self]() in DispatchQueue.main.async {
-                self?.UITbaleView.reloadData()
+            self?.UITbaleView.reloadData()
             }
         }
-
+        
+        viewModel.showAlert = {[weak self]() in DispatchQueue.main.async {
+            self?.showNoNetworkAlert()
+            }}
+        
         viewModel.initFetch(location:location)
+    }
+    
+    
+    func showNoNetworkAlert(){
+        progressBar.isHidden = true
+        let action = UIAlertAction(title: "Okay", style: .default) { (action) in
+        }
+        showAlert(title: "No Connectivity", message: "Showing saved data, Turn on your internet connectivity to get updated weather details", action: action)
     }
     
     func handleEmptyData(){
         if  viewModel.dataCount == 0 {
             viewNoLabel.isHidden = false
+            //Show the location for which weather data is not available for
             UITbaleView.separatorStyle = .none
         }else{
             viewNoLabel.isHidden = true
@@ -164,11 +203,11 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
 
 extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.dataCount
     }
-
-     func numberOfSections(in tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         if viewModel.dataCount == 0 {
             tableView.separatorStyle = .none
         }else{
@@ -176,18 +215,18 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         }
         return 1
     }
-
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         performSegue(withIdentifier: "openDetail", sender: self)
     }
-
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let weatherModel = viewModel.getWeatherModelForCellAt(row: indexPath.row)
         let temp = weatherModel.temperature
         let tempFormat = "\(temp!) ℃"
-
+        
         
         //TODO: refactoor this code here
         if indexPath.row == 0{
@@ -200,7 +239,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             todayViewell.isUserInteractionEnabled = false
             todayViewell.labelTemperatureLow.text = "\(Int(weatherModel.tempLow))℃"
             todayViewell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
-
+            
             return todayViewell
         }else {
             let normalViewCell = tableView.dequeueReusableCell(withIdentifier: "NormalViewCell") as! NormalViewCell

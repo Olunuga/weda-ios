@@ -47,7 +47,7 @@ class WeatherViewModel {
     var showAlert : (()->())?
     var isDataAvailable : (()->())?
     
-
+    
     init(weatherService : WeatherService = WeatherService(), weatherRepository : weatherRepository = weatherRepository()) {
         self.weatherService = weatherService
         self.weatherRespository = weatherRepository

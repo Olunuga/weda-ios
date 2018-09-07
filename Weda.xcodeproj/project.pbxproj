@@ -26,6 +26,7 @@
 		CF868AF82130EDB4001C53EA /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF72130EDB4001C53EA /* WeatherRepository.swift */; };
 		CF868AFA2130EDE9001C53EA /* WeatherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */; };
 		CF868AFC2130FF32001C53EA /* WeatherLocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AFB2130FF32001C53EA /* WeatherLocalService.swift */; };
+		CFFFA2A821424D8300E039B1 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFA2A721424D8300E039B1 /* CheckInternet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		CF868AF72130EDB4001C53EA /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryProtocol.swift; sourceTree = "<group>"; };
 		CF868AFB2130FF32001C53EA /* WeatherLocalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocalService.swift; sourceTree = "<group>"; };
+		CFFFA2A721424D8300E039B1 /* CheckInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
 		D56EE5CAFC12F1554C6ED388 /* Pods-Weda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.debug.xcconfig"; sourceTree = "<group>"; };
 		FBF398829B57EEE908402844 /* Pods-Weda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weda.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weda/Pods-Weda.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +157,7 @@
 		CF56E5F3212BDCD0008561B5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CFFFA2A621424BD600E039B1 /* Services */,
 				CF56E602212C9180008561B5 /* StoryBoards */,
 				CF56E5D9212BDB64008561B5 /* AppDelegate.swift */,
 			);
@@ -197,6 +200,14 @@
 				CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		CFFFA2A621424BD600E039B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CFFFA2A721424D8300E039B1 /* CheckInternet.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		E8B56E42854F6C6047BFEA59 /* Frameworks */ = {
@@ -336,6 +347,7 @@
 				CF56E604212C93B5008561B5 /* WeatherRemoteService.swift in Sources */,
 				CF56E5FF212BE9F6008561B5 /* Weather.swift in Sources */,
 				CF56E601212BEAAD008561B5 /* WeatherViewModel.swift in Sources */,
+				CFFFA2A821424D8300E039B1 /* CheckInternet.swift in Sources */,
 				CF868AFC2130FF32001C53EA /* WeatherLocalService.swift in Sources */,
 				CF56E5E2212BDB64008561B5 /* Weda.xcdatamodeld in Sources */,
 				CF868AFA2130EDE9001C53EA /* WeatherRepositoryProtocol.swift in Sources */,

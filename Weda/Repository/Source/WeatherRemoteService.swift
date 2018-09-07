@@ -21,6 +21,7 @@ class WeatherService: WeatherRepositoryProtocol {
     
     func fetchWeatherData(location : String, complete: @escaping ( _ success: Bool, _ jsonData: Any, _ error: APIError? )->() ) {
         let params : Parameters = ["q":location, "appid":APP_ID]
+        
         Alamofire.request(WEATHER_BASE_URL, method: .get, parameters: params, encoding: URLEncoding.queryString)
             .downloadProgress(queue: DispatchQueue.global(qos: .utility)) { progress in
             }
@@ -29,11 +30,12 @@ class WeatherService: WeatherRepositoryProtocol {
             }
             .responseJSON { response in
                 if response.result.isSuccess{
-                     complete(true,response.result.value!,nil)
+                    complete(true,response.result.value!,nil)
                 }else{
                     complete(false,[Weather](),APIError.noNetwork)
                 }
         }
+        
     }
     
     func saveWeather(weatherArray: [Weather]?, complete: @escaping (Bool) -> ()) {
