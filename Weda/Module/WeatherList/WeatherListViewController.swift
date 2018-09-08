@@ -23,8 +23,10 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
+    var selectedRow : Int?
+    var fromView = false;
     
-    //TODO: allow user input location them selves | handle location failed | Handle when there is no network | Handle when data is empty show full weather data for other days when selected | Make status bar opaque | Refactoe code | MVP done :-)
+    //TODO: allow user input location them selves |show full weather data for other days when selected | Make status bar opaque | Refactoe code | MVP done :-)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +43,12 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
         if isLocationAVailableToUse() {
             viewNoLabel.isHidden = true
             if(CheckInternet.Connection()){
-                self.progressBar.startAnimating()
+                
+                if !fromView{
+                    self.progressBar.startAnimating()
+                    fromView = false
+                }
+            
                 locationManager.startUpdatingLocation()
             }else{
                 showNoNetworkAlert()
@@ -183,7 +190,8 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "openDetail" {
-            
+            let destinationVc = segue.destination as! WeatherDetailViewController
+            destinationVc.selectedWeather = viewModel.getWeatherModelForCellAt(row: selectedRow!)
         }
     }
     
@@ -218,35 +226,34 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        selectedRow = indexPath.row
+        fromView = true;
         performSegue(withIdentifier: "openDetail", sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let weatherModel = viewModel.getWeatherModelForCellAt(row: indexPath.row)
-        let temp = weatherModel.temperature
-        let tempFormat = "\(temp!) ℃"
-        
-        
+        let presentationHelper = PresentationHelper()
+       
         //TODO: refactoor this code here
         if indexPath.row == 0{
             let todayViewell = tableView.dequeueReusableCell(withIdentifier: "TodayViewCell", for: indexPath) as! TodayViewCell
             todayViewell.labelRegion.text = viewModel.location!
-            todayViewell.lableTemperature.text = tempFormat
-            todayViewell.labelHumidity.text = "\(Int(weatherModel.humidity))%"
-            todayViewell.labelWindSpeed.text = "\(weatherModel.windSpeed) Km/hr"
+            todayViewell.lableTemperature.text = presentationHelper.formatTemperature(temperature: weatherModel.tempHigh,true)
+            todayViewell.labelHumidity.text = presentationHelper.formatHumidity(humidity: weatherModel.humidity)
+            todayViewell.labelWindSpeed.text = presentationHelper.formatWindSpeed(windSpeed: weatherModel.windSpeed)
             todayViewell.labelDescription.text = weatherModel.weatherDescription
             todayViewell.isUserInteractionEnabled = false
-            todayViewell.labelTemperatureLow.text = "\(Int(weatherModel.tempLow))℃"
+            todayViewell.labelTemperatureLow.text = presentationHelper.formatTemperature(temperature: weatherModel.tempLow, true)
             todayViewell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
             
             return todayViewell
         }else {
             let normalViewCell = tableView.dequeueReusableCell(withIdentifier: "NormalViewCell") as! NormalViewCell
-            normalViewCell.labelTemperature.text = "\(temp ?? "N/A")°"
+            normalViewCell.labelTemperature.text = presentationHelper.formatTemperature(temperature: weatherModel.tempHigh, false)
             normalViewCell.labelDay.text = viewModel.getFriendlyDate(date: weatherModel.date!)
             normalViewCell.labelDescription.text = weatherModel.weatherDescription
-            normalViewCell.labelTempLow.text = "\(Int(weatherModel.tempLow))°"
+            normalViewCell.labelTempLow.text = presentationHelper.formatTemperature(temperature: weatherModel.tempLow, false)
             normalViewCell.selectionStyle = .default
             normalViewCell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
             return normalViewCell
