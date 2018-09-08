@@ -23,6 +23,8 @@
 		CF56E604212C93B5008561B5 /* WeatherRemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E603212C93B5008561B5 /* WeatherRemoteService.swift */; };
 		CF56E606212D9CF8008561B5 /* WeatherDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */; };
 		CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */; };
+		CF7832012143FEEB0011297C /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7832002143FEEB0011297C /* DateHelper.swift */; };
+		CF783203214401310011297C /* PresentationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF783202214401310011297C /* PresentationHelper.swift */; };
 		CF868AF82130EDB4001C53EA /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF72130EDB4001C53EA /* WeatherRepository.swift */; };
 		CF868AFA2130EDE9001C53EA /* WeatherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */; };
 		CF868AFC2130FF32001C53EA /* WeatherLocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF868AFB2130FF32001C53EA /* WeatherLocalService.swift */; };
@@ -48,6 +50,8 @@
 		CF56E603212C93B5008561B5 /* WeatherRemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRemoteService.swift; sourceTree = "<group>"; };
 		CF56E605212D9CF8008561B5 /* WeatherDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewModel.swift; sourceTree = "<group>"; };
 		CF56E607212D9F21008561B5 /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
+		CF7832002143FEEB0011297C /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		CF783202214401310011297C /* PresentationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationHelper.swift; sourceTree = "<group>"; };
 		CF868AF72130EDB4001C53EA /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		CF868AF92130EDE9001C53EA /* WeatherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryProtocol.swift; sourceTree = "<group>"; };
 		CF868AFB2130FF32001C53EA /* WeatherLocalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocalService.swift; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				CFFFA2A721424D8300E039B1 /* CheckInternet.swift */,
+				CF7832002143FEEB0011297C /* DateHelper.swift */,
+				CF783202214401310011297C /* PresentationHelper.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF7832012143FEEB0011297C /* DateHelper.swift in Sources */,
 				CF56E5FB212BE488008561B5 /* NormalViewCell.swift in Sources */,
 				CF56E5DC212BDB64008561B5 /* WeatherListViewController.swift in Sources */,
 				CF56E5DA212BDB64008561B5 /* AppDelegate.swift in Sources */,
@@ -354,6 +361,7 @@
 				CF56E608212D9F21008561B5 /* WeatherDetailViewController.swift in Sources */,
 				CF868AF82130EDB4001C53EA /* WeatherRepository.swift in Sources */,
 				CF56E606212D9CF8008561B5 /* WeatherDetailViewModel.swift in Sources */,
+				CF783203214401310011297C /* PresentationHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +506,7 @@
 			baseConfigurationReference = D56EE5CAFC12F1554C6ED388 /* Pods-Weda.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CH4P23R94R;
 				INFOPLIST_FILE = Weda/Info.plist;
@@ -508,6 +517,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.finitebits.Weda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -518,6 +528,7 @@
 			baseConfigurationReference = FBF398829B57EEE908402844 /* Pods-Weda.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CH4P23R94R;
 				INFOPLIST_FILE = Weda/Info.plist;
@@ -528,6 +539,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.finitebits.Weda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
