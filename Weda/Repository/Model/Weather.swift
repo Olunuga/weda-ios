@@ -12,6 +12,7 @@ import RealmSwift
 class Weather: Object {
   @objc dynamic var date : Date?
   @objc dynamic var icon : String? = "cloud"
+  @objc dynamic var location : String?
   @objc dynamic var temperature : String?
   @objc dynamic var tempHigh : Double = 0.0
   @objc dynamic var tempLow : Double = 0.0

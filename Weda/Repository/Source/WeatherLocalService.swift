@@ -13,7 +13,9 @@ class WeatherLocalService: WeatherRepositoryProtocol {
     lazy var realm = try! Realm()
     
     func fetchWeatherData(location: String, complete: @escaping (Bool, Any, APIError?) -> ()) {
-        let weatherItems = realm.objects(Weather.self)
+        //let weatherItems = realm.objects(Weather.self)
+        let predicate = NSPredicate(format: "location = %@",location)
+        let weatherItems = realm.objects(Weather.self).filter(predicate)
         complete(true,Array(weatherItems),nil)
     }
     
