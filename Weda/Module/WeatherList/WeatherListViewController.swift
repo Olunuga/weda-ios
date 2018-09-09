@@ -25,8 +25,10 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     let geoCoder = CLGeocoder()
     var selectedRow : Int?
     var fromView = false;
+    let defaults = UserDefaults.standard
+    let defaultLastLocationKey = "LastLocationUsed"
     
-    //TODO: allow user input location them selves |show full weather data for other days when selected | Make status bar opaque | Refactoe code | MVP done :-)
+    //TODO: allow user input location them selves|convert location to lattitude and longitude | Make status bar opaque | Refactor code | MVP done :-)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +54,10 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
                 locationManager.startUpdatingLocation()
             }else{
                 showNoNetworkAlert()
-                initVM(with: "") //get current user saved location here.
+                if let location = defaults.string(forKey: defaultLastLocationKey){
+                    initVM(with: location)
+                }
+                
             }
             
         }
@@ -118,6 +123,7 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
                 guard let currentLocPlacemark = placemarks?.first else { return }
                 if let locality = currentLocPlacemark.administrativeArea {
                     self.initVM(with: locality)
+                    self.defaults.setValue(locality, forKey: self.defaultLastLocationKey)
                     print(locality)
                 }
             }

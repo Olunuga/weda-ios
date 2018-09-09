@@ -14,13 +14,13 @@ class weatherRepository: WeatherRepositoryProtocol {
     var weatherLocalService : WeatherLocalService? = WeatherLocalService()
     
     func fetchWeatherData(location: String, complete: @escaping (Bool, Any, APIError?) -> ()) {
-        weatherLocalService?.fetchWeatherData(location: "", complete: { (status, weatherArray, error) in
+        weatherLocalService?.fetchWeatherData(location: location, complete: { (status, weatherArray, error) in
             if (weatherArray as! [Weather]).isEmpty {
                 if let weatherInstance = self.weatherRemoteService {
                     weatherInstance.fetchWeatherData(location: location) { (status, weatherData, apiError) in
                         if status {
-                            let weatherArray  = self.getWeatherFromJson(JSON(weatherData))
-                            self.weatherLocalService?.saveWeather(weatherArray: weatherArray, complete: { (Bool) in
+                            let weatherArray  = self.getWeatherFromJson(JSON(weatherData),for: location)
+                            self.weatherLocalService?.saveWeather(weatherArray: weatherArray,complete: { (Bool) in
                                 
                             })
                             complete(status, weatherArray, apiError)
@@ -49,7 +49,7 @@ class weatherRepository: WeatherRepositoryProtocol {
     
     
     //MARK helper methods
-    func getWeatherFromJson(_ jsonData: JSON) ->[Weather]{
+    func getWeatherFromJson(_ jsonData: JSON, for location : String) ->[Weather]{
         var weatherArray : [Weather] = [Weather]()
         for (_,subJson):(String, JSON) in jsonData["list"] {
             let date = subJson["dt"].doubleValue
@@ -74,6 +74,7 @@ class weatherRepository: WeatherRepositoryProtocol {
             weather.windSpeed = windSpeed
             weather.humidity = hum
             weather.iconDesc = iconDesc
+            weather.location = location
             
             if !isDateRepeated(weatherArray: weatherArray, date: dateValue){
                 weatherArray.append(weather)
