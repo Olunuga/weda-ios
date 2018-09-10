@@ -27,12 +27,17 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     var fromView = false;
     let defaults = UserDefaults.standard
     let defaultLastLocationKey = "LastLocationUsed"
+    let usePreferedLocationKey = "UsePreferredLocation"
     
-    //TODO: allow user input location them selves|convert location to lattitude and longitude | Make status bar opaque | Refactor code | MVP done :-)
+    //TODO: convert location to lattitude and longitude |Show Weather forcast for various time of the day| Refactor code | MVP done :-)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initLocationManger()
+        if defaults.bool(forKey: usePreferedLocationKey){
+            useLocalLocation()
+        }else{
+            initLocationManger()
+        }
         confifgureTableView()
     }
     
@@ -42,7 +47,7 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        if isLocationAVailableToUse() {
+        if isLocationAVailableToUse() && !defaults.bool(forKey: usePreferedLocationKey){
             viewNoLabel.isHidden = true
             if(CheckInternet.Connection()){
                 
@@ -50,18 +55,21 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
                     self.progressBar.startAnimating()
                     fromView = false
                 }
-            
+                
                 locationManager.startUpdatingLocation()
             }else{
                 showNoNetworkAlert()
-                if let location = defaults.string(forKey: defaultLastLocationKey){
-                    initVM(with: location)
-                }
-                
+                useLocalLocation()
             }
             
         }
         
+    }
+    
+    func useLocalLocation(){
+        if let location = defaults.string(forKey: defaultLastLocationKey){
+            initVM(with: location)
+        }
     }
     
     
@@ -201,6 +209,31 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        var mTextField = UITextField()
+        let alert = UIAlertController(title: "Location", message: "", preferredStyle: .alert)
+        let actionSetLocation = UIAlertAction(title: "Set", style: .default) { (action) in
+            let preferredLocation = mTextField.text!
+            self.defaults.setValue(preferredLocation, forKey: self.defaultLastLocationKey)
+            self.defaults.setValue(true, forKey: self.usePreferedLocationKey)
+            self.initVM(with: preferredLocation)
+        }
+        
+        let actionAutoLocation = UIAlertAction(title: "Use GPS", style: .default) { (action) in
+            self.defaults.setValue(false, forKey: self.usePreferedLocationKey)
+            self.initLocationManger()
+        }
+        
+        alert.addTextField { (textField) in
+            mTextField = textField
+            mTextField.text = self.defaults.string(forKey: self.defaultLastLocationKey)
+        }
+        alert.addAction(actionAutoLocation)
+        alert.addAction(actionSetLocation)
+        present(alert, animated: true,completion: nil)
+    }
+    
     //MARK: Table logics
     
     func confifgureTableView() {
@@ -240,7 +273,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let weatherModel = viewModel.getWeatherModelForCellAt(row: indexPath.row)
         let presentationHelper = PresentationHelper()
-       
+        
         //TODO: refactoor this code here
         if indexPath.row == 0{
             let todayViewell = tableView.dequeueReusableCell(withIdentifier: "TodayViewCell", for: indexPath) as! TodayViewCell
