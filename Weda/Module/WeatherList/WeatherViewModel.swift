@@ -56,7 +56,6 @@ class WeatherViewModel {
     
     func initFetch(location: String?){
         self.isDataLoading = true
-        //let location : String? = "Lagos"
         self.location = location
         weatherRespository.fetchWeatherData(location: location!) { (success, data, error) in
             self.isDataLoading = false
@@ -66,9 +65,15 @@ class WeatherViewModel {
                 let weatherArray = data as! [Weather]
                 if let weatherItem = weatherArray.first {
                     if weatherItem.date!.compare(Date()) == ComparisonResult.orderedAscending {
-                        self.weatherRespository.deleteOldWeatherData(complete: { (status) in
-                            self.initFetch(location: location)
-                        })
+                        if CheckInternet.Connection(){
+                            //Get new data if there is internet connection
+                            self.weatherRespository.deleteOldWeatherData(complete: { (status) in
+                                self.initFetch(location: location)
+                            })
+                        }else{ //Clear the old data and show only recent one.
+                           self.weatherArray =  self.removeOldData(from: weatherArray);
+                        }
+                       
                         
                     }else{
                         self.weatherArray = data as! [Weather]
@@ -85,6 +90,15 @@ class WeatherViewModel {
     
     func getFriendlyDate(date: Date)->String{
         return DateHelper().getFriendlyDate(date: date)
+    }
+    
+    func removeOldData(from weatherArray: [Weather]) -> [Weather]{
+      return  weatherArray.filter { (weather) -> Bool in
+        let date = weather.date!
+        let currentDate = Date()
+          return  date.compare(currentDate) == ComparisonResult.orderedDescending 
+        }
+
     }
     
 }
