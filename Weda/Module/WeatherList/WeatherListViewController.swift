@@ -46,22 +46,25 @@ class WeatherListViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        if isLocationAVailableToUse() && !defaults.bool(forKey: usePreferedLocationKey){
-            viewNoLabel.isHidden = true
-            if(CheckInternet.Connection()){
-                
-                if !fromView{
-                    self.progressBar.startAnimating()
-                    fromView = false
+        if !defaults.bool(forKey: usePreferedLocationKey){
+            if isLocationAVailableToUse(){
+                viewNoLabel.isHidden = true
+                if(CheckInternet.Connection()){
+                    
+                    if !fromView{
+                        self.progressBar.startAnimating()
+                        fromView = false
+                    }
+                    
+                    locationManager.startUpdatingLocation()
+                }else{
+                     showNoNetworkAlert()
                 }
-                
-                locationManager.startUpdatingLocation()
             }else{
-                showNoNetworkAlert()
                 useLocalLocation()
             }
-            
+        }else{
+           useLocalLocation()
         }
         
     }
