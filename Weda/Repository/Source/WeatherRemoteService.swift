@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import Keys
 
 enum APIError: String, Error {
     case noNetwork = "No Network"
@@ -17,9 +18,10 @@ enum APIError: String, Error {
 
 class WeatherService: WeatherRepositoryProtocol {
     let WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast"
-    let APP_ID = "f936b63d575f6aeded7bdb33e0084e1d"
-    
+    let keys = WedaKeys()
+   
     func fetchWeatherData(location : String, complete: @escaping ( _ success: Bool, _ jsonData: Any, _ error: APIError? )->() ) {
+        let APP_ID = keys.opeWeatherAPiKey
         let params : Parameters = ["q":location, "appid":APP_ID]
         
         Alamofire.request(WEATHER_BASE_URL, method: .get, parameters: params, encoding: URLEncoding.queryString)

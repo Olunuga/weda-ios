@@ -9,5 +9,10 @@ target 'Weda' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'SDWebImage', '~> 4.0'
   pod 'RealmSwift'
-
 end
+
+plugin 'cocoapods-keys', {
+    :project => "Weda",
+    :keys => [
+    "opeWeatherAPiKey"
+    ]}
