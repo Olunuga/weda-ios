@@ -1,0 +1,13 @@
+//
+//  Development.xcconfig
+//  Weda
+//
+//  Created by OLUNUGA Mayowa on 14/09/2018.
+//  Copyright © 2018 OLUNUGA Mayowa. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include "Pods/Target Support Files/Pods-Weda/Pods-Weda.development.xcconfig"
+
+OPEN_WEATHER_KEY=shouldAddTheTestKeyHere

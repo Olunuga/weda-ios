@@ -17,12 +17,15 @@ enum APIError: String, Error {
 }
 
 class WeatherService: WeatherRepositoryProtocol {
-    let WEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast"
-    let keys = WedaKeys()
+    let configHelper = ConfigHelper()
    
     func fetchWeatherData(location : String, complete: @escaping ( _ success: Bool, _ jsonData: Any, _ error: APIError? )->() ) {
-        let APP_ID = keys.opeWeatherAPiKey
+        let WEATHER_BASE_URL = configHelper.valueFor(key: ConfigHelper.OpenWeatherBaseUrl)
+        let APP_ID = ConfigHelper().valueFor(key: ConfigHelper.OpenWeatherAPIKeyName)
         let params : Parameters = ["q":location, "appid":APP_ID]
+        
+        //print(WEATHER_BASE_URL)
+        //print(APP_ID)
         
         Alamofire.request(WEATHER_BASE_URL, method: .get, parameters: params, encoding: URLEncoding.queryString)
             .downloadProgress(queue: DispatchQueue.global(qos: .utility)) { progress in
