@@ -6,6 +6,9 @@
 build/
 DerivedData/
 
+## Configuration
+Weda/Config/Release.xcconfig
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
