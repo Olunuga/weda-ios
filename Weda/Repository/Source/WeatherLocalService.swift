@@ -13,7 +13,6 @@ class WeatherLocalService: WeatherRepositoryProtocol {
     lazy var realm = try! Realm()
     
     func fetchWeatherData(location: String, complete: @escaping (Bool, Any, APIError?) -> ()) {
-        //let weatherItems = realm.objects(Weather.self)
         let predicate = NSPredicate(format: "location = %@",location)
         let weatherItems = realm.objects(Weather.self).filter(predicate)
         complete(true,Array(weatherItems),nil)
@@ -33,11 +32,12 @@ class WeatherLocalService: WeatherRepositoryProtocol {
         }
     }
     
-    func deleteOldWeatherData(complete: @escaping (Bool) -> ()) {
+    func deleteOldWeatherData(for location : String, complete: @escaping (Bool) -> ()) {
         do {
             try realm.write {
-            let allWeather = realm.objects(Weather.self)
-            realm.delete(allWeather)
+                let predicate = NSPredicate(format: "location = %@",location)
+                let weatherItems = realm.objects(Weather.self).filter(predicate)
+            realm.delete(weatherItems)
             complete(true)
             }
         } catch{

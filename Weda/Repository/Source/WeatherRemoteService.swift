@@ -24,9 +24,6 @@ class WeatherService: WeatherRepositoryProtocol {
         let APP_ID = ConfigHelper().valueFor(key: ConfigHelper.OpenWeatherAPIKeyName)
         let params : Parameters = ["q":location, "appid":APP_ID]
         
-        //print(WEATHER_BASE_URL)
-        //print(APP_ID)
-        
         Alamofire.request(WEATHER_BASE_URL, method: .get, parameters: params, encoding: URLEncoding.queryString)
             .downloadProgress(queue: DispatchQueue.global(qos: .utility)) { progress in
             }
@@ -47,7 +44,7 @@ class WeatherService: WeatherRepositoryProtocol {
         
     }
     
-    func deleteOldWeatherData(complete: @escaping (Bool) -> ()) {
+    func deleteOldWeatherData(for location :String, complete: @escaping (Bool) -> ()) {
         
     }
 }

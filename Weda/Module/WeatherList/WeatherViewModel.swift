@@ -67,7 +67,7 @@ class WeatherViewModel {
                     if weatherItem.date!.compare(Date()) == ComparisonResult.orderedAscending {
                         if CheckInternet.Connection(){
                             //Get new data if there is internet connection
-                            self.weatherRespository.deleteOldWeatherData(complete: { (status) in
+                            self.weatherRespository.deleteOldWeatherData(for:location!, complete: { (status) in
                                 self.initFetch(location: location)
                             })
                         }else{ //Clear the old data and show only recent one.

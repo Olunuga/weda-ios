@@ -297,6 +297,9 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             normalViewCell.labelDescription.text = weatherModel.weatherDescription
             normalViewCell.labelTempLow.text = presentationHelper.formatTemperature(temperature: weatherModel.tempLow, false)
             normalViewCell.selectionStyle = .default
+            let view = UIView()
+            view.backgroundColor = UIColor(white: 1, alpha: 0.3)
+            normalViewCell.selectedBackgroundView = view;
             normalViewCell.imageIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/w/\(weatherModel.iconDesc ?? "cloud").png"), placeholderImage: UIImage(named: "cloud"))
             return normalViewCell
         }

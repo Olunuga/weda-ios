@@ -10,6 +10,8 @@ import Foundation
 import SwiftyJSON
 
 class weatherRepository: WeatherRepositoryProtocol {
+
+    
     var weatherRemoteService : WeatherService? = WeatherService() //TODO: make this a singleton class
     var weatherLocalService : WeatherLocalService? = WeatherLocalService()
     
@@ -41,8 +43,8 @@ class weatherRepository: WeatherRepositoryProtocol {
     }
     
     
-    func deleteOldWeatherData(complete: @escaping (Bool) -> ()) {
-        weatherLocalService?.deleteOldWeatherData(complete: { (status) in
+    func deleteOldWeatherData(for location : String, complete: @escaping (Bool) -> ()) {
+        weatherLocalService?.deleteOldWeatherData(for : location, complete: { (status) in
             complete(status)
         })
     }
